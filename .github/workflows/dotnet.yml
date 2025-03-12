@@ -20,6 +20,9 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+    - name: Change directory to specific folder
+      working-directory: ./src
+      run: echo "Switched to folder"
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
