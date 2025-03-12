@@ -2,7 +2,7 @@
 
 namespace MGisbert.Appointments.Data.Repositories
 {
-    public interface IAppointmentsRepository : IBaseRepository<Appointment>
+    public interface IAppointmentRepository : IBaseRepository<Appointment>
     {
     }
 }

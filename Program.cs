@@ -1,6 +1,7 @@
 
 using MGisbert.Appointments.Data;
 using Microsoft.EntityFrameworkCore;
+using MGisbert.Appointments.Utilities.Extensions;
 
 namespace MGisbert.Appointments
 {
@@ -13,11 +14,16 @@ namespace MGisbert.Appointments
             builder.Services.AddDbContext<Context>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
             options => options.MigrationsAssembly("MGisbert.Appointments")));
-            // Add services to the container.
 
+            // Add services to the container.
+            builder.Services.AddApplicationServices();
             builder.Services.AddControllers();
+
+            // Registrar AutoMapper
+            builder.Services.AddAutoMapper(typeof(Program));
+            
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
+                        builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
 

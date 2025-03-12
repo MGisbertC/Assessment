@@ -2,7 +2,7 @@
 
 namespace MGisbert.Appointments.Data.Repositories.Implementation
 {
-    public class AppointmentsRepository : BaseRepository<Appointment>, IAppointmentsRepository
+    public class AppointmentsRepository : BaseRepository<Appointment>, IAppointmentRepository
     {
         public AppointmentsRepository(Context context) : base(context)
         {        
