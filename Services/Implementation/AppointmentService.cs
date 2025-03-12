@@ -65,6 +65,16 @@ namespace MGisbert.Appointments.Services.Implementation
 
                 await _appointmentRepository.DeleteAsync(appointment);
             }
+            catch (KeyNotFoundException ex)
+            {
+                _logger.LogWarning(ex, ex.Message);
+                throw;
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogWarning(ex, ex.Message);
+                throw;
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An unexpected error occurred.");
@@ -83,6 +93,11 @@ namespace MGisbert.Appointments.Services.Implementation
                 }
 
                 return _mapper.Map<Appointment>(appointment);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                _logger.LogWarning(ex, ex.Message);
+                throw;
             }
             catch (Exception ex)
             {
@@ -108,8 +123,13 @@ namespace MGisbert.Appointments.Services.Implementation
                     default:
                         throw new ArgumentException("Invalid sort parameter.");
                 }
-
+                var asd = _mapper.Map<IEnumerable<Appointment>>(appointments);
                 return _mapper.Map<IEnumerable<Appointment>>(appointments);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogWarning(ex, ex.Message);
+                throw;
             }
             catch (Exception ex)
             {
@@ -136,6 +156,16 @@ namespace MGisbert.Appointments.Services.Implementation
                 _mapper.Map(appointment, existingAppointment);
                 await _appointmentRepository.UpdateAsync(existingAppointment);
                 return _mapper.Map<Appointment>(existingAppointment);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                _logger.LogWarning(ex, ex.Message);
+                throw;
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogWarning(ex, ex.Message);
+                throw;
             }
             catch (Exception ex)
             {

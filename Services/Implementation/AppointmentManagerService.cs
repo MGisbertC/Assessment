@@ -28,7 +28,18 @@ namespace MGisbert.Appointments.Services.Implementation
 
                 appointment.Status = status;
                 await _appointmentRepository.UpdateAsync(appointment);
+
                 return _mapper.Map<Appointment>(appointment);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                _logger.LogWarning(ex, ex.Message);
+                throw;
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogWarning(ex, ex.Message);
+                throw;
             }
             catch (Exception ex)
             {
@@ -52,6 +63,16 @@ namespace MGisbert.Appointments.Services.Implementation
                 }
 
                 await _appointmentRepository.DeleteAsync(appointment);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                _logger.LogWarning(ex, ex.Message);
+                throw;
+            }
+            catch (InvalidOperationException ex)
+            {
+                _logger.LogWarning(ex, ex.Message);
+                throw;
             }
             catch (Exception ex)
             {
@@ -86,6 +107,11 @@ namespace MGisbert.Appointments.Services.Implementation
                 //}
 
                 return _mapper.Map<IEnumerable<Appointment>>(appointments);
+            }
+            catch (ArgumentException ex)
+            {
+                _logger.LogWarning(ex, ex.Message);
+                throw;
             }
             catch (Exception ex)
             {

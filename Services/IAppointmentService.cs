@@ -14,5 +14,6 @@ namespace MGisbert.Appointments.Services
         Task DeleteAppointmentAsync(int id, int userId);
         Task<Appointment> UpdateAppointmentStatusAsync(int id, Status status);
         Task DeleteAppointmentAsync(int id);
+        Task<IEnumerable<Appointment>> GetAllAppointmentsAsync(string sortBy, bool ascending);
     }
 }

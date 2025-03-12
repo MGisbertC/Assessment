@@ -16,7 +16,7 @@ namespace MGisbert.Appointments.Models
 
         [Required]
         [EnumDataType(typeof(Status))]
-        public Status status { get; set; } = Status.Pending;
+        public Status Status { get; set; } = Status.Pending;
         [Required]
         public DateTime Date { get; set; }
         public int UserId { get; set; }
