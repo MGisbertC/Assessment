@@ -2,6 +2,8 @@ using MGisbert.Appointments.Data;
 using Microsoft.EntityFrameworkCore;
 using MGisbert.Appointments.Utilities.Extensions;
 
+using MGisbert.Appointments.Middlewares;
+
 namespace MGisbert.Appointments
 {
     public class Program
@@ -37,6 +39,10 @@ namespace MGisbert.Appointments
 
             app.UseHttpsRedirection();
 
+            // middleware exceptions
+            app.UseMiddleware<ExceptionMiddleware>();
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
