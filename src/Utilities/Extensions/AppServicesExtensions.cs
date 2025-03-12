@@ -11,6 +11,7 @@ namespace MGisbert.Appointments.Utilities.Extensions
         {
             //Services
             services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<IUserService, UserService>();
 
             //Repositories
             services.AddScoped<IAppointmentRepository, AppointmentsRepository>();

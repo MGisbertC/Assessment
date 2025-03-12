@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35818.85 d17.13
+VisualStudioVersion = 17.13.35818.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MGisbert.Appointments", "MGisbert.Appointments.csproj", "{4CBEDEEF-F18E-4DA6-A168-6F3F0847D0B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MGisbert.Appointments", "src\MGisbert.Appointments.csproj", "{4CBEDEEF-F18E-4DA6-A168-6F3F0847D0B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MGisbert.Appointments.Tests", "tests\MGisbert.Appointments.Tests\MGisbert.Appointments.Tests.csproj", "{7D80D183-7B72-427C-BF28-688D48828D95}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{BBADF18B-E532-4C3F-BD8E-1FF00B00A0A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +21,17 @@ Global
 		{4CBEDEEF-F18E-4DA6-A168-6F3F0847D0B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CBEDEEF-F18E-4DA6-A168-6F3F0847D0B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CBEDEEF-F18E-4DA6-A168-6F3F0847D0B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D80D183-7B72-427C-BF28-688D48828D95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D80D183-7B72-427C-BF28-688D48828D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D80D183-7B72-427C-BF28-688D48828D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D80D183-7B72-427C-BF28-688D48828D95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4CBEDEEF-F18E-4DA6-A168-6F3F0847D0B9} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{7D80D183-7B72-427C-BF28-688D48828D95} = {BBADF18B-E532-4C3F-BD8E-1FF00B00A0A0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A07C6D00-7E13-427A-8F79-38FD6194C008}
