@@ -19,7 +19,7 @@ namespace MGisbert.Appointments.Tests
         public async Task AddAppointmentAsync_UserExists_ReturnsAppointment()
         {
             // Arrange
-            var appointmentRequest = new AppointmentRequest { UserId = 1, Title = "Test" };
+            var appointmentRequest = new AppointmentRequest { UserId = 1, Title = "Test", Date = DateTime.Now.AddDays(1) };
             var appointmentEntity = new Data.Entities.Appointment();
             var appointmentModel = new Appointment();
 
