@@ -30,13 +30,9 @@ namespace MGisbert.Appointments.Controllers
                 var appointment = await _appointmentService.AddAppointmentAsync(appointmentRequest);
                 return Created("",appointment);
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
-                return BadRequest(ex.Message);
-            }
-            catch (ApplicationException ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return HandleException(ex);
             }
         }
 
@@ -48,13 +44,9 @@ namespace MGisbert.Appointments.Controllers
                 await _appointmentService.DeleteAppointmentAsync(id, userId);
                 return NoContent();
             }
-            catch (KeyNotFoundException)
+            catch (Exception ex)
             {
-                return NotFound();
-            }
-            catch (ApplicationException ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return HandleException(ex);
             }
         }
 
@@ -70,9 +62,9 @@ namespace MGisbert.Appointments.Controllers
                 }
                 return Ok(appointment);
             }
-            catch (ApplicationException ex)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return HandleException(ex);
             }
         }
 
@@ -84,9 +76,9 @@ namespace MGisbert.Appointments.Controllers
                 var appointments = await _appointmentService.GetAppointmentsByUserIdAsync(userId, sortBy, ascending);
                 return Ok(appointments);
             }
-            catch (ApplicationException ex)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return HandleException(ex);
             }
         }
 
@@ -108,13 +100,9 @@ namespace MGisbert.Appointments.Controllers
                 var updatedAppointment = await _appointmentService.UpdateAppointmentAsync(appointment, userId);
                 return Ok(updatedAppointment);
             }
-            catch (KeyNotFoundException)
+            catch (Exception ex)
             {
-                return NotFound();
-            }
-            catch (ApplicationException ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return HandleException(ex);
             }
         }
 
@@ -127,13 +115,9 @@ namespace MGisbert.Appointments.Controllers
                 var updatedAppointment = await _appointmentService.UpdateAppointmentStatusAsync(id, Status.Approved);
                 return Ok(updatedAppointment);
             }
-            catch (KeyNotFoundException)
+            catch (Exception ex)
             {
-                return NotFound();
-            }
-            catch (ApplicationException ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return HandleException(ex);
             }
         }
         [HttpPost("{id}/cancel")]
@@ -144,13 +128,9 @@ namespace MGisbert.Appointments.Controllers
                 var updatedAppointment = await _appointmentService.UpdateAppointmentStatusAsync(id, Status.Cancelled);
                 return Ok(updatedAppointment);
             }
-            catch (KeyNotFoundException)
+            catch (Exception ex)
             {
-                return NotFound();
-            }
-            catch (ApplicationException ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return HandleException(ex);
             }
         }
         [HttpDelete("{id}")]
@@ -161,13 +141,9 @@ namespace MGisbert.Appointments.Controllers
                 await _appointmentService.DeleteAppointmentAsync(id);
                 return NoContent();
             }
-            catch (KeyNotFoundException)
+            catch (Exception ex)
             {
-                return NotFound();
-            }
-            catch (ApplicationException ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return HandleException(ex);
             }
         }
         [HttpGet]
@@ -178,10 +154,23 @@ namespace MGisbert.Appointments.Controllers
                 var appointments = await _appointmentService.GetAllAppointmentsAsync(sortBy, ascending);
                 return Ok(appointments);
             }
-            catch (ApplicationException ex)
+            catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                return HandleException(ex);
             }
+        }
+        #endregion
+
+        #region Private methods
+        private IActionResult HandleException(Exception ex)
+        {
+            return ex switch
+            {
+                KeyNotFoundException => NotFound(),
+                InvalidOperationException => BadRequest(ex.Message),
+                ApplicationException => StatusCode(StatusCodes.Status500InternalServerError, ex.Message),
+                _ => StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.")
+            };
         }
         #endregion
     }
