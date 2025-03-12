@@ -31,6 +31,14 @@ namespace MGisbert.Appointments.Services.Implementation
                 {
                     throw new ArgumentException("The specified user not exists.");
                 }
+                if (appointment.Date < DateTime.Now)
+                {
+                    throw new ArgumentException("The appointment date must be in the future.");
+                }
+                if (appointment.Status != Status.Pending)
+                {
+                    throw new ArgumentException("The status of the appointment must be 'Pending'.");
+                }
 
                 var requestMapped = _mapper.Map<Data.Entities.Appointment>(appointment);
                 await _appointmentRepository.AddAsync(requestMapped);
@@ -151,6 +159,11 @@ namespace MGisbert.Appointments.Services.Implementation
                 if (existingAppointment.Status != Status.Pending)
                 {
                     throw new InvalidOperationException("Only appointments with status 'Pending' can be updated.");
+                }
+
+                if (existingAppointment.Status == Status.Pending && appointment.Status == Status.Approved)
+                {
+                    throw new InvalidOperationException("Only manager can approve an appointment.");
                 }
 
                 _mapper.Map(appointment, existingAppointment);
